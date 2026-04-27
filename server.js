@@ -26,11 +26,11 @@ const s3 = new S3Client({
 // generate upload URL
 app.get("/upload-url", async (req, res) => {
   try {
-    const { filename, contentType } = req.query;
+    const { filename, contentType, folder } = req.query;
 
-    if (!filename || !contentType) {
+    if (!filename || !contentType || !folder) {
       return res.status(400).json({
-        error: "filename and contentType are required"
+        error: "filename, contentType and folder are required"
       });
     }
 
