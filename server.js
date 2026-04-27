@@ -34,7 +34,10 @@ app.get("/upload-url", async (req, res) => {
       });
     }
 
-    const key = `uploads/${Date.now()}-${filename}`;
+    // sanitize folder (VERY important)
+    const safeFolder = String(folder).replace(/[^a-zA-Z0-9-_]/g, "");
+
+    const key = `${safeFolder}/${Date.now()}-${filename}`;
 
     const command = new PutObjectCommand({
       Bucket: S3_BUCKET,
