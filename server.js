@@ -1,8 +1,17 @@
 const express = require("express");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors({
+  origin: "https://app.localpackmonster.com",
+  methods: ["GET", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
+}));
+
+app.options("*", cors());
 
 // ENV vars
 const S3_BUCKET = process.env.S3_BUCKET;
