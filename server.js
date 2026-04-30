@@ -41,12 +41,11 @@ app.get("/upload-url", async (req, res) => {
 
     const command = new PutObjectCommand({
       Bucket: S3_BUCKET,
-      Key: key,
-      ContentType: contentType
+      Key: key
     });
 
     const url = await getSignedUrl(s3, command, {
-      expiresIn: 60 // seconds
+      expiresIn: 300 // seconds
     });
 
     res.json({
